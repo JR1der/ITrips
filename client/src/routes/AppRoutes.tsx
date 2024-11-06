@@ -1,7 +1,7 @@
-import { CircularProgress } from "@mui/material";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuth } from "../auth/useAuth";
-import { routes } from "./RouteConfig";
+import { CircularProgress } from '@mui/material';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAuth } from '../auth/useAuth';
+import { routes } from './RouteConfig';
 
 export const AppRoutes = () => {
   const { isAuthenticated, isAuthenticating } = useAuth();
@@ -10,10 +10,10 @@ export const AppRoutes = () => {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
         }}
       >
         <CircularProgress />
@@ -34,7 +34,7 @@ export const AppRoutes = () => {
         }
       />
       {routes.map((route, index) => {
-        if (route.path === "/") return null;
+        if (route.path === '/') return null;
 
         if (route.isPublic && isAuthenticated) {
           return (

@@ -1,16 +1,16 @@
-import { BaseLayout } from "../layout/BaseLayout.tsx";
+import { BaseLayout } from '../layout/BaseLayout.tsx';
 
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle } from '@mui/icons-material';
 import {
-    Box,
-    Card,
-    Container,
-    CssBaseline,
-    Grid,
-    Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useAuth } from "../auth/useAuth.ts";
+  Box,
+  Card,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../auth/useAuth.ts';
 
 export const ProfilePage = () => {
   const { activeUser } = useAuth();
@@ -27,42 +27,44 @@ export const ProfilePage = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            transition: "opacity 0.5s, transform 0.5s",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          <AccountCircle sx={{ fontSize: 100, color: "primary.main" }} />
+          <AccountCircle sx={{ fontSize: 100, color: 'primary.main' }} />
           <Typography
             component="h1"
             variant="h5"
-            sx={{ fontWeight: "bold", color: "grey.800" }}
+            sx={{ fontWeight: 'bold', color: 'grey.800' }}
           >
             Profile Information
           </Typography>
 
-          <Box sx={{ mt: 2, width: "100%" }}>
+          <Box sx={{ mt: 2, width: '100%' }}>
             {activeUser ? (
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Card sx={{ p: 2 }}>
                     <Typography
-                      sx={{ color: "primary.dark" }}
+                      sx={{ color: 'primary.dark' }}
                       variant="h6"
                       fontWeight="bold"
                     >
                       Username:
                     </Typography>
-                    <Typography variant="body1">{activeUser.username}</Typography>
+                    <Typography variant="body1">
+                      {activeUser.username}
+                    </Typography>
                   </Card>
                 </Grid>
                 <Grid item xs={12}>
                   <Card sx={{ p: 2 }}>
                     <Typography
-                      sx={{ color: "primary.dark" }}
+                      sx={{ color: 'primary.dark' }}
                       variant="h6"
                       fontWeight="bold"
                     >

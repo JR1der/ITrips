@@ -4,15 +4,15 @@ import {
   CircularProgress,
   Tooltip,
   Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { useTrips } from "../../hooks/useTrips.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { DeleteConfirmationModal } from "./components/DeleteConfirmationModal.tsx";
-import { TripItem } from "./components/TripItem.tsx";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { useTrips } from '../../hooks/useTrips.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { DeleteConfirmationModal } from './components/DeleteConfirmationModal.tsx';
+import { TripItem } from './components/TripItem.tsx';
 
 export const TripsPage = () => {
   const { activeUser } = useAuth();
@@ -21,7 +21,7 @@ export const TripsPage = () => {
   const [selectedTrip, setSelectedTrip] = useState<{
     id: string;
     name: string;
-  }>({ id: "", name: "" });
+  }>({ id: '', name: '' });
   const [fadeIn, setFadeIn] = useState(false);
   const navigate = useNavigate();
 
@@ -54,15 +54,15 @@ export const TripsPage = () => {
       <Box
         sx={{
           padding: 3,
-          transition: "opacity 0.5s, transform 0.5s",
+          transition: 'opacity 0.5s, transform 0.5s',
           opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+          transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
         }}
       >
         <Tooltip title="Click to create a new trip">
           <Button
             fullWidth
-            onClick={() => navigate("/trips/create")}
+            onClick={() => navigate('/trips/create')}
             variant="contained"
             color="primary"
             size="large"
@@ -74,10 +74,10 @@ export const TripsPage = () => {
         {isLoading && (
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "70vh",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '70vh',
             }}
           >
             <CircularProgress />
@@ -103,9 +103,9 @@ export const TripsPage = () => {
               sx={{
                 mb: 3,
                 mt: 3,
-                color: "primary.dark",
-                fontWeight: "bold",
-                textAlign: "center",
+                color: 'primary.dark',
+                fontWeight: 'bold',
+                textAlign: 'center',
               }}
             >
               Your Trips
@@ -131,9 +131,9 @@ export const TripsPage = () => {
               sx={{
                 mb: 3,
                 mt: 3,
-                color: "primary.dark",
-                fontWeight: "bold",
-                textAlign: "center",
+                color: 'primary.dark',
+                fontWeight: 'bold',
+                textAlign: 'center',
               }}
             >
               All Trips

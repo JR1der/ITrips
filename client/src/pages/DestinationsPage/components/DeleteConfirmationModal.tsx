@@ -1,5 +1,5 @@
-import { Box, Button, Fade, Modal, TextField, Typography } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { Box, Button, Fade, Modal, TextField, Typography } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
 
 interface DeleteConfirmationModalProps {
   open: boolean;
@@ -11,7 +11,7 @@ interface DeleteConfirmationModalProps {
 export const DeleteConfirmationModal: React.FC<
   DeleteConfirmationModalProps
 > = ({ open, onClose, onDelete, destinationName }) => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [isDeleteDisabled, setIsDeleteDisabled] = useState(true);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export const DeleteConfirmationModal: React.FC<
   const handleDelete = () => {
     if (name === destinationName) {
       onDelete();
-      setName("");
+      setName('');
     }
   };
 
@@ -32,7 +32,7 @@ export const DeleteConfirmationModal: React.FC<
       open={open}
       onClose={() => {
         onClose();
-        setName("");
+        setName('');
       }}
       aria-labelledby="delete-confirmation-modal"
       aria-describedby="delete-confirmation-modal-description"
@@ -40,12 +40,12 @@ export const DeleteConfirmationModal: React.FC<
       <Fade in={open}>
         <Box
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: { xs: "80%", sm: 400 },
-            bgcolor: "background.paper",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: { xs: '80%', sm: 400 },
+            bgcolor: 'background.paper',
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
@@ -53,10 +53,10 @@ export const DeleteConfirmationModal: React.FC<
         >
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
             }}
           >
             <Typography
@@ -73,15 +73,15 @@ export const DeleteConfirmationModal: React.FC<
               color="error"
               onClick={() => {
                 onClose();
-                setName("");
+                setName('');
               }}
               sx={{
-                position: "absolute",
-                top: "-25px",
-                right: "-10px",
-                fontSize: "2rem",
-                fontWeight: "bold",
-                cursor: "pointer",
+                position: 'absolute',
+                top: '-25px',
+                right: '-10px',
+                fontSize: '2rem',
+                fontWeight: 'bold',
+                cursor: 'pointer',
               }}
             >
               ×
@@ -99,7 +99,7 @@ export const DeleteConfirmationModal: React.FC<
             textAlign="center"
             variant="h6"
             color="error"
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: 'bold' }}
           >
             These actions cannot be undone.
           </Typography>

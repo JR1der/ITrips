@@ -1,17 +1,17 @@
-import { Navigate, RouteProps } from "react-router-dom";
-import { LoginPage } from "../pages/auth/LoginPage";
-import { RegisterPage } from "../pages/auth/RegisterPage";
-import { CreateDestinationPage } from "../pages/CreateDestinationPage/CreateDestinationPage";
-import { CreateTripPage } from "../pages/CreateTripPage/CreateTripPage";
-import { DestinationsPage } from "../pages/DestinationsPage/DestinationsPage";
-import { EditDestinationPage } from "../pages/EditDestinationPage/EditDestinationPage";
-import { EditTripPage } from "../pages/EditTripPage/EditTripPage";
-import { HomePage } from "../pages/HomePage/HomePage";
-import { SingleDestinationPage } from "../pages/SingleDestinationPage/SingleDestinationPage";
-import { SingleTripPage } from "../pages/SingleTripPage/SingleTripPage";
-import { TripsPage } from "../pages/TripsPage/TripsPage";
-import { WelcomePage } from "../pages/WelcomePage/WelcomePage";
-import { ProfilePage } from "../pages/ProfilePage";
+import { Navigate, RouteProps } from 'react-router-dom';
+import { LoginPage } from '../pages/auth/LoginPage';
+import { RegisterPage } from '../pages/auth/RegisterPage';
+import { CreateDestinationPage } from '../pages/CreateDestinationPage/CreateDestinationPage';
+import { CreateTripPage } from '../pages/CreateTripPage/CreateTripPage';
+import { DestinationsPage } from '../pages/DestinationsPage/DestinationsPage';
+import { EditDestinationPage } from '../pages/EditDestinationPage/EditDestinationPage';
+import { EditTripPage } from '../pages/EditTripPage/EditTripPage';
+import { HomePage } from '../pages/HomePage/HomePage';
+import { ProfilePage } from '../pages/ProfilePage';
+import { SingleDestinationPage } from '../pages/SingleDestinationPage/SingleDestinationPage';
+import { SingleTripPage } from '../pages/SingleTripPage/SingleTripPage';
+import { TripsPage } from '../pages/TripsPage/TripsPage';
+import { WelcomePage } from '../pages/WelcomePage/WelcomePage';
 
 export type RouteConfig = RouteProps & {
   path: string;
@@ -25,96 +25,96 @@ export type RouteConfig = RouteProps & {
 
 export const routes: RouteConfig[] = [
   {
-    path: "/",
+    path: '/',
     element: null,
     order: 0,
   },
   {
     isPrivate: false,
     isPublic: true,
-    path: "/welcome",
+    path: '/welcome',
     element: <WelcomePage />,
-    title: "Welcome",
+    title: 'Welcome',
     order: 0,
   },
   {
     isPrivate: true,
     isPublic: false,
-    path: "/home",
+    path: '/home',
     element: <HomePage />,
-    title: "Home",
+    title: 'Home',
     order: 0,
   },
   {
     isPrivate: true,
     isPublic: false,
-    path: "/profile",
+    path: '/profile',
     element: <ProfilePage />,
-    title: "Profile",
+    title: 'Profile',
     order: 0,
   },
   {
-    path: "/*",
+    path: '/*',
     element: <Navigate to="/welcome" replace />,
     order: 9,
   },
   {
-    path: "/login",
+    path: '/login',
     isPublic: true,
     isPrivate: false,
     element: <LoginPage />,
-    title: "Login",
+    title: 'Login',
   },
   {
-    path: "/signup",
+    path: '/signup',
     isPublic: true,
     isPrivate: false,
     element: <RegisterPage />,
-    title: "Register",
+    title: 'Register',
   },
   {
-    path: "/destinations",
+    path: '/destinations',
     element: <DestinationsPage />,
     index: true,
   },
   {
-    path: "/destinations/create",
+    path: '/destinations/create',
     isPublic: false,
     isPrivate: true,
     element: <CreateDestinationPage />,
     index: true,
   },
   {
-    path: "/destinations/edit/:id",
+    path: '/destinations/edit/:id',
     isPublic: false,
     isPrivate: true,
     element: <EditDestinationPage />,
     index: true,
   },
   {
-    path: "/destinations/:id",
+    path: '/destinations/:id',
     element: <SingleDestinationPage />,
     index: true,
   },
   {
-    path: "/trips/create",
+    path: '/trips/create',
     isPublic: false,
     isPrivate: true,
     element: <CreateTripPage />,
     index: true,
   },
   {
-    path: "/trips",
+    path: '/trips',
     element: <TripsPage />,
     index: true,
   },
   {
-    path: "/trips/:id",
+    path: '/trips/:id',
     element: <SingleTripPage />,
     index: true,
   },
   {
-    path: "/trip/edit/:id",
+    path: '/trip/edit/:id',
     isPublic: false,
     isPrivate: true,
     element: <EditTripPage />,

@@ -1,5 +1,5 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Card, CardContent, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 interface Destination {
   _id: string;
@@ -33,31 +33,31 @@ export const TripItem = ({
       sx={{
         mt: 2,
         p: 2,
-        cursor: "pointer",
-        "&:hover": { backgroundColor: "grey.200" },
-        transition: "0.3s",
+        cursor: 'pointer',
+        '&:hover': { backgroundColor: 'grey.200' },
+        transition: '0.3s',
       }}
       onClick={handleEnterTrip}
     >
       <CardContent
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          alignItems: "center",
-          justifyContent: "space-between",
-          textAlign: { xs: "center", sm: "left" },
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          textAlign: { xs: 'center', sm: 'left' },
         }}
       >
         <Box
           sx={{
             mb: { xs: 2, sm: 0 },
-            flex: { xs: "1 1 auto", sm: "0 1 auto" },
+            flex: { xs: '1 1 auto', sm: '0 1 auto' },
           }}
         >
           <Typography
             variant="h5"
             component="h2"
-            sx={{ fontWeight: "bold", color: "primary.dark" }}
+            sx={{ fontWeight: 'bold', color: 'primary.dark' }}
           >
             {trip.name}
           </Typography>
@@ -66,11 +66,11 @@ export const TripItem = ({
               <Typography
                 variant="subtitle2"
                 color="textSecondary"
-                sx={{ fontWeight: "bold", mt: 1 }}
+                sx={{ fontWeight: 'bold', mt: 1 }}
               >
                 Destinations visited:
               </Typography>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: 'flex' }}>
                 {trip.destinations.map((destination) => (
                   <Typography
                     key={destination._id}
@@ -91,15 +91,15 @@ export const TripItem = ({
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
             gap: 1,
-            width: { xs: "100%", sm: "auto" },
+            width: { xs: '100%', sm: 'auto' },
             flexShrink: 0,
           }}
         >
           <Button
-            sx={{ m: 1, minWidth: "120px" }}
+            sx={{ m: 1, minWidth: '120px' }}
             variant="contained"
             onClick={(e) => {
               e.stopPropagation();
@@ -110,7 +110,7 @@ export const TripItem = ({
           </Button>
           {trip.userId === activeUserId && (
             <Button
-              sx={{ m: 1, minWidth: "120px" }}
+              sx={{ m: 1, minWidth: '120px' }}
               variant="outlined"
               onClick={(e) => {
                 e.stopPropagation();

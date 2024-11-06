@@ -1,32 +1,32 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import {
-    Box,
-    Button,
-    IconButton,
-    TextField,
-    Tooltip,
-    Typography,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { LoadingComponent } from "../../components/LoadingComponent.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { EditedModal } from "./components/EditedModal.tsx";
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { LoadingComponent } from '../../components/LoadingComponent.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { EditedModal } from './components/EditedModal.tsx';
 
 export const EditDestinationPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { activeUser } = useAuth();
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [activities, setActivities] = useState<string[]>([""]);
-  const [error, setError] = useState<string>("");
-  const [errorType, setErrorType] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [activities, setActivities] = useState<string[]>(['']);
+  const [error, setError] = useState<string>('');
+  const [errorType, setErrorType] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [fadeIn, setFadeIn] = useState<boolean>(false);
   const {
@@ -47,18 +47,18 @@ export const EditDestinationPage = () => {
   useEffect(() => {
     if (destination) {
       if (activeUser?.id !== destination.userId) {
-        navigate("/destinations");
+        navigate('/destinations');
         return;
       }
       setFadeIn(true);
       setName(destination.name);
       setDescription(destination.description);
-      setActivities(destination.activities || [""]);
+      setActivities(destination.activities || ['']);
     }
   }, [destination, activeUser, navigate]);
 
   const handleAddActivity = () => {
-    setActivities([...activities, ""]);
+    setActivities([...activities, '']);
   };
 
   const handleRemoveActivity = (index: number) => {
@@ -78,8 +78,8 @@ export const EditDestinationPage = () => {
       !description ||
       activities.some((activity) => !activity.trim())
     ) {
-      setError("All fields should be filled");
-      setErrorType("error");
+      setError('All fields should be filled');
+      setErrorType('error');
       return;
     }
 
@@ -93,8 +93,8 @@ export const EditDestinationPage = () => {
 
     try {
       await updateDestination(updatedDestination);
-      setError("Destination updated successfully");
-      setErrorType("success");
+      setError('Destination updated successfully');
+      setErrorType('success');
       setOpenModal(true);
       if (
         !destination ||
@@ -106,9 +106,9 @@ export const EditDestinationPage = () => {
     } catch (err) {
       console.error(err);
       setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
+        err instanceof Error ? err.message : 'An unknown error occurred'
       );
-      setErrorType("error");
+      setErrorType('error');
     }
   };
 
@@ -137,9 +137,9 @@ export const EditDestinationPage = () => {
         <Box
           my={4}
           sx={{
-            transition: "opacity 0.5s, transform 0.5s",
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           {error && <ErrorBox message={error} type={errorType} />}

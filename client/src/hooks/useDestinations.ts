@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Destination {
   _id: string;
@@ -21,7 +21,7 @@ export const useDestinations = () => {
     isLoading: isFetchingDestinations,
     isError: hasFetchError,
   } = useQuery({
-    queryKey: ["destinations"],
+    queryKey: ['destinations'],
     queryFn: async () => {
       const response = await axios.get(`${BACKEND_URL}/destinations`);
       console.log(response);
@@ -47,14 +47,14 @@ export const useDestinations = () => {
     isLoading: isCreating,
     isError: hasCreateError,
   } = useMutation({
-    mutationFn: async (newDestination: Omit<Destination, "_id">) => {
+    mutationFn: async (newDestination: Omit<Destination, '_id'>) => {
       const response = await axios.post(
         `${BACKEND_URL}/destinations/create`,
         newDestination
       );
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(["destinations"]),
+    onSuccess: () => queryClient.invalidateQueries(['destinations']),
   });
 
   // Mutation for updating a destination
@@ -70,7 +70,7 @@ export const useDestinations = () => {
       );
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(["destinations"]),
+    onSuccess: () => queryClient.invalidateQueries(['destinations']),
   });
 
   // Mutation for deleting a destination
@@ -85,7 +85,7 @@ export const useDestinations = () => {
       });
       return id;
     },
-    onSuccess: () => queryClient.invalidateQueries(["destinations"]),
+    onSuccess: () => queryClient.invalidateQueries(['destinations']),
   });
 
   return {

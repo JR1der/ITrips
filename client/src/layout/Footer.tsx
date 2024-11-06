@@ -1,14 +1,14 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from '@mui/material';
 
 export const Footer = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "auto",
-        backgroundColor: "primary.main",
-        paddingTop: "1rem",
-        paddingBottom: "1rem",
+        width: '100%',
+        height: 'auto',
+        backgroundColor: 'primary.main',
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
       }}
     >
       <Container maxWidth="lg">

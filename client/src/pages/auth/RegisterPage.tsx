@@ -1,26 +1,26 @@
 import {
-    Box,
-    CssBaseline,
-    Grid,
-    Link,
-    TextField,
-    Typography,
-} from "@mui/material";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { object, string } from "yup";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorPage from "../../components/ErrorPage.tsx";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
+  Box,
+  CssBaseline,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { object, string } from 'yup';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorPage from '../../components/ErrorPage.tsx';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
 
 const validationSchema = object({
-  firstName: string().required("First name is required"),
-  lastName: string().required("Last name is required"),
-  email: string().email("Enter a valid email").required("Email is required"),
-  password: string().min(8).required("Password is required"),
+  firstName: string().required('First name is required'),
+  lastName: string().required('Last name is required'),
+  email: string().email('Enter a valid email').required('Email is required'),
+  password: string().min(8).required('Password is required'),
 });
 
 export type RegisterUserData = {
@@ -31,10 +31,10 @@ export type RegisterUserData = {
 };
 
 const initialFormValues: RegisterUserData = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
 };
 
 export const RegisterPage = () => {
@@ -53,9 +53,9 @@ export const RegisterPage = () => {
     onSubmit: async (values) => {
       try {
         await register(values.firstName, values.email, values.password);
-        navigate("/");
+        navigate('/');
       } catch (registrationError) {
-        setError("Failed to register. Please try again.");
+        setError('Failed to register. Please try again.');
       }
     },
   });
@@ -67,12 +67,12 @@ export const RegisterPage = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            transition: "opacity 0.5s, transform 0.5s",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           <Typography component="h1" variant="h5" fontWeight="bold">
@@ -153,7 +153,7 @@ export const RegisterPage = () => {
             </Button>
             <Grid container justifyContent="center" alignItems="center">
               <Link href="/auth/login" variant="body2">
-                {"Already have an account? Sign In"}
+                {'Already have an account? Sign In'}
               </Link>
             </Grid>
           </form>

@@ -1,27 +1,27 @@
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import DynamicFormIcon from "@mui/icons-material/DynamicForm";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useAuth } from "../auth/useAuth";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import DynamicFormIcon from '@mui/icons-material/DynamicForm';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useAuth } from '../auth/useAuth';
 
-const authPages = { Home: "/", Trips: "/trips", Destinations: "/destinations" };
+const authPages = { Home: '/', Trips: '/trips', Destinations: '/destinations' };
 const guestPages = {
-  Home: "/",
-  Trips: "/trips",
-  Destinations: "/destinations",
+  Home: '/',
+  Trips: '/trips',
+  Destinations: '/destinations',
 };
-const authSettings = { Profile: "/profile", Logout: "logout" };
-const guestSettings = { Login: "/login", "Sign Up": "/signup" };
+const authSettings = { Profile: '/profile', Logout: 'logout' };
+const guestSettings = { Login: '/login', 'Sign Up': '/signup' };
 
 export const Header = () => {
   const { isAuthenticated, logout, activeUser } = useAuth();
@@ -59,25 +59,25 @@ export const Header = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DynamicFormIcon sx={{ display: { xs: "none", md: "flex" } }} />
+          <DynamicFormIcon sx={{ display: { xs: 'none', md: 'flex' } }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".1rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             iTrips
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -92,18 +92,18 @@ export const Header = () => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {Object.entries(pages).map(([page, path]) => (
@@ -117,7 +117,7 @@ export const Header = () => {
           </Box>
 
           <DynamicFormIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
           />
           <Typography
             variant="h5"
@@ -126,13 +126,13 @@ export const Header = () => {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".1rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             iTrips
@@ -141,8 +141,8 @@ export const Header = () => {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "flex", justifyContent: "center" },
-              gap: "10px",
+              display: { xs: 'none', md: 'flex', justifyContent: 'center' },
+              gap: '10px',
             }}
           >
             {Object.entries(pages).map(([page, path]) => (
@@ -166,21 +166,21 @@ export const Header = () => {
                     Guest
                   </Typography>
                 )}
-                <AccountBoxIcon sx={{ fontSize: 32, color: "white" }} />
+                <AccountBoxIcon sx={{ fontSize: 32, color: 'white' }} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                vertical: 'top',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -189,14 +189,14 @@ export const Header = () => {
                 <MenuItem
                   key={setting}
                   onClick={
-                    setting === "Logout" ? handleLogout : handleCloseUserMenu
+                    setting === 'Logout' ? handleLogout : handleCloseUserMenu
                   }
                 >
                   <Link
-                    href={path === "logout" ? "#" : path}
+                    href={path === 'logout' ? '#' : path}
                     color="inherit"
                     underline="none"
-                    onClick={setting === "Logout" ? handleLogout : undefined}
+                    onClick={setting === 'Logout' ? handleLogout : undefined}
                   >
                     <Typography variant="body1" textAlign="center">
                       {setting}

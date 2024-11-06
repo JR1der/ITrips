@@ -1,23 +1,23 @@
 import {
-    Box,
-    Button,
-    Container,
-    CssBaseline,
-    Grid,
-    Link,
-    TextField,
-    Typography,
-} from "@mui/material";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import { object, string } from "yup";
-import { useAuth } from "../../auth/useAuth";
-import ErrorPage from "../../components/ErrorPage.tsx";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { object, string } from 'yup';
+import { useAuth } from '../../auth/useAuth';
+import ErrorPage from '../../components/ErrorPage.tsx';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
 
 const validationSchema = object({
-  email: string().email("Enter a valid email").required("Email is required"),
-  password: string().required("Password is required"),
+  email: string().email('Enter a valid email').required('Email is required'),
+  password: string().required('Password is required'),
 });
 
 export const LoginPage = () => {
@@ -30,13 +30,13 @@ export const LoginPage = () => {
   }, []);
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { email: '', password: '' },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         await login(values.email, values.password);
       } catch {
-        setError("Invalid credentials, please try again.");
+        setError('Invalid credentials, please try again.');
       }
     },
   });
@@ -52,12 +52,12 @@ export const LoginPage = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            transition: "opacity 0.5s, transform 0.5s",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           <Typography component="h1" variant="h5" fontWeight="bold">

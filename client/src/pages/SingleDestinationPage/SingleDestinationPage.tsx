@@ -1,13 +1,13 @@
-import { Box, Button, Card, Tooltip, Typography } from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { LoadingComponent } from "../../components/LoadingComponent.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { DestinationsActivities } from "./components/DestinationActivities.tsx";
+import { Box, Button, Card, Tooltip, Typography } from '@mui/material';
+import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { LoadingComponent } from '../../components/LoadingComponent.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { DestinationsActivities } from './components/DestinationActivities.tsx';
 
 export const SingleDestinationPage = () => {
   const { id } = useParams();
@@ -47,10 +47,10 @@ export const SingleDestinationPage = () => {
             setDestinationImage(data[0].urls.regular);
           }
         } else {
-          console.error("Failed to fetch destination image");
+          console.error('Failed to fetch destination image');
         }
       } catch (error) {
-        console.error("Error fetching destination image:", error);
+        console.error('Error fetching destination image:', error);
       }
     };
 
@@ -81,9 +81,9 @@ export const SingleDestinationPage = () => {
         <Box
           my={4}
           sx={{
-            transition: "opacity 0.5s, transform 0.5s",
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           {!isFetchingDestinations && !hasFetchError && destination ? (
@@ -105,8 +105,8 @@ export const SingleDestinationPage = () => {
               <Card
                 sx={{
                   p: 2,
-                  backgroundColor: "primary.main",
-                  color: "white",
+                  backgroundColor: 'primary.main',
+                  color: 'white',
                   mb: 2,
                 }}
               >
@@ -119,17 +119,17 @@ export const SingleDestinationPage = () => {
                   <Typography
                     variant="h5"
                     component="h1"
-                    sx={{ fontWeight: "bold", p: 1 }}
+                    sx={{ fontWeight: 'bold', p: 1 }}
                   >
                     {destination?.name}
                   </Typography>
                 </Box>
               </Card>
-              <Card sx={{ p: 2, backgroundColor: "white", mb: 2 }}>
+              <Card sx={{ p: 2, backgroundColor: 'white', mb: 2 }}>
                 <Box>
                   <Typography
                     variant="h6"
-                    sx={{ p: 1, color: "primary.dark", fontWeight: "bold" }}
+                    sx={{ p: 1, color: 'primary.dark', fontWeight: 'bold' }}
                   >
                     Description
                   </Typography>
@@ -142,14 +142,14 @@ export const SingleDestinationPage = () => {
               </Card>
               {destinationImage ? (
                 <Card sx={{ p: 2 }}>
-                  <Box sx={{ maxWidth: "100%", mb: 2 }}>
+                  <Box sx={{ maxWidth: '100%', mb: 2 }}>
                     <Typography
                       variant="h5"
                       sx={{
                         mb: 2,
-                        color: "primary.dark",
-                        fontWeight: "bold",
-                        textAlign: "center",
+                        color: 'primary.dark',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
                       }}
                     >
                       Image of {destination?.name}
@@ -157,7 +157,7 @@ export const SingleDestinationPage = () => {
                     <img
                       src={destinationImage}
                       alt="Destination"
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                     />
                   </Box>
                 </Card>

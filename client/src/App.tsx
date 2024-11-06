@@ -1,8 +1,8 @@
-import { ThemeProvider } from "@emotion/react";
-import { BrowserRouter } from "react-router-dom";
-import { theme } from "../src/style/theme";
-import { AuthProvider } from "./auth/AuthProvider";
-import { AppRoutes } from "./routes/AppRoutes";
+import { ThemeProvider } from '@emotion/react';
+import { BrowserRouter } from 'react-router-dom';
+import { theme } from '../src/style/theme';
+import { AuthProvider } from './auth/AuthProvider';
+import { AppRoutes } from './routes/AppRoutes';
 
 export const App = () => {
   return (

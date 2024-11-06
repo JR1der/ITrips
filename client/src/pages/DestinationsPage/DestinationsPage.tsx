@@ -1,13 +1,13 @@
-import { Box, Button, Tooltip, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { LoadingComponent } from "../../components/LoadingComponent.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { DeleteConfirmationModal } from "./components/DeleteConfirmationModal.tsx";
-import { DestinationItem } from "./components/DestinationItem.tsx";
+import { Box, Button, Tooltip, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { LoadingComponent } from '../../components/LoadingComponent.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { DeleteConfirmationModal } from './components/DeleteConfirmationModal.tsx';
+import { DestinationItem } from './components/DestinationItem.tsx';
 
 export const DestinationsPage = () => {
   const {
@@ -18,8 +18,8 @@ export const DestinationsPage = () => {
   } = useDestinations();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState({
-    id: "",
-    name: "",
+    id: '',
+    name: '',
   });
   const [fadeIn, setFadeIn] = useState(false);
   const navigate = useNavigate();
@@ -62,15 +62,15 @@ export const DestinationsPage = () => {
       <Box
         sx={{
           padding: 3,
-          transition: "opacity 0.5s, transform 0.5s",
+          transition: 'opacity 0.5s, transform 0.5s',
           opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+          transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
         }}
       >
         <Tooltip title="Click to create a new destination">
           <Button
             fullWidth
-            onClick={() => navigate("/destinations/create")}
+            onClick={() => navigate('/destinations/create')}
             variant="contained"
             color="primary"
             size="large"
@@ -97,7 +97,7 @@ export const DestinationsPage = () => {
           <>
             <Typography
               variant="h5"
-              sx={{ color: "primary.main", mt: 2, mb: 1, textAlign: "center" }}
+              sx={{ color: 'primary.main', mt: 2, mb: 1, textAlign: 'center' }}
             >
               Your Destinations
             </Typography>
@@ -118,7 +118,7 @@ export const DestinationsPage = () => {
           <>
             <Typography
               variant="h5"
-              sx={{ color: "primary.main", mt: 2, mb: 1, textAlign: "center" }}
+              sx={{ color: 'primary.main', mt: 2, mb: 1, textAlign: 'center' }}
             >
               All Destinations
             </Typography>

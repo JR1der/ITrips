@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Destination {
   _id: string;
@@ -26,7 +26,7 @@ export const useTrips = () => {
     isLoading: isFetchingTrips,
     isError: hasFetchError,
   } = useQuery<Trip[]>({
-    queryKey: ["trips"],
+    queryKey: ['trips'],
     queryFn: async () => {
       const response = await axios.get(`${BACKEND_URL}/trips`);
       console.log(response);
@@ -53,11 +53,11 @@ export const useTrips = () => {
     isLoading: isCreating,
     isError: hasCreateError,
   } = useMutation({
-    mutationFn: async (newTrip: Omit<Trip, "_id">) => {
+    mutationFn: async (newTrip: Omit<Trip, '_id'>) => {
       const response = await axios.post(`${BACKEND_URL}/trips`, newTrip);
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(["trips"]),
+    onSuccess: () => queryClient.invalidateQueries(['trips']),
   });
 
   // Mutation for updating a trip
@@ -74,7 +74,7 @@ export const useTrips = () => {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["trips"]);
+      queryClient.invalidateQueries(['trips']);
       if (trip && updatedTrip._id === trip._id) {
         setTrip(updatedTrip);
       }
@@ -91,7 +91,7 @@ export const useTrips = () => {
       await axios.delete(`${BACKEND_URL}/trips/${id}`, { data: { userId } });
       return id;
     },
-    onSuccess: () => queryClient.invalidateQueries(["trips"]),
+    onSuccess: () => queryClient.invalidateQueries(['trips']),
   });
 
   return {

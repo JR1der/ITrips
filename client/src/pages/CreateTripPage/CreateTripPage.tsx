@@ -1,4 +1,4 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {
   Box,
   Button,
@@ -7,18 +7,18 @@ import {
   TextField,
   Tooltip,
   Typography,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { LoadingComponent } from "../../components/LoadingComponent.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { useTrips } from "../../hooks/useTrips.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { CreatedModal } from "./components/CreatedModal.tsx";
-import { DestinationItem } from "./components/DestinationItem.tsx";
-import { ModalAccordionItem } from "./components/ModalAccordionItem.tsx";
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { LoadingComponent } from '../../components/LoadingComponent.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { useTrips } from '../../hooks/useTrips.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { CreatedModal } from './components/CreatedModal.tsx';
+import { DestinationItem } from './components/DestinationItem.tsx';
+import { ModalAccordionItem } from './components/ModalAccordionItem.tsx';
 
 export interface Destination {
   _id: string;
@@ -29,15 +29,15 @@ export interface Destination {
 
 export const CreateTripPage: React.FC = () => {
   const { activeUser } = useAuth();
-  const { createTrip, isCreating, hasCreateError } = useTrips();
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const { createTrip } = useTrips();
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const { destinations, isLoading, isError } = useDestinations();
   const [selectedDestinations, setSelectedDestinations] = useState<
     Destination[]
   >([]);
-  const [error, setError] = useState<string>("");
-  const [errorType, setErrorType] = useState<string>("");
+  const [error, setError] = useState<string>('');
+  const [errorType] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [fadeIn, setFadeIn] = useState<boolean>(false);
@@ -57,7 +57,7 @@ export const CreateTripPage: React.FC = () => {
   const handleCreateTrip = async () => {
     if (!name || !description || selectedDestinations.length === 0) {
       setError(
-        "All fields should be filled and at least one destination selected."
+        'All fields should be filled and at least one destination selected.'
       );
       return;
     }
@@ -72,12 +72,12 @@ export const CreateTripPage: React.FC = () => {
     try {
       await createTrip(tripData);
       setOpenCreationModal(true);
-      setName("");
-      setDescription("");
+      setName('');
+      setDescription('');
       setSelectedDestinations([]);
-      setError("");
+      setError('');
     } catch (error) {
-      setError("An error occurred while creating the trip.");
+      setError('An error occurred while creating the trip.');
     }
   };
 
@@ -100,9 +100,9 @@ export const CreateTripPage: React.FC = () => {
         <Box
           my={4}
           sx={{
-            transition: "opacity 0.5s, transform 0.5s",
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           {error && <ErrorBox message={error} type={errorType} />}
@@ -166,12 +166,12 @@ export const CreateTripPage: React.FC = () => {
           <Fade in={openModal}>
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: { xs: "80%", sm: 400 },
-                bgcolor: "background.paper",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: { xs: '80%', sm: 400 },
+                bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
                 borderRadius: 2,
@@ -194,7 +194,7 @@ export const CreateTripPage: React.FC = () => {
               )}
               {!isLoading && !isError && (
                 <Box
-                  sx={{ maxHeight: "calc(100vh - 200px)", overflow: "auto" }}
+                  sx={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}
                 >
                   {destinations.map((destination: any) => (
                     <ModalAccordionItem

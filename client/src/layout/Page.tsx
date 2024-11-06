@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container } from '@mui/material';
 
 export const Page = ({ children }: { children: React.ReactNode }) => {
   return (

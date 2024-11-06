@@ -1,38 +1,38 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import {
-    Box,
-    Button,
-    IconButton,
-    TextField,
-    Tooltip,
-    Typography,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { CreatedModal } from "./components/CreatedModal.tsx";
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { CreatedModal } from './components/CreatedModal.tsx';
 
 export const CreateDestinationPage = () => {
   const { activeUser } = useAuth();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [activities, setActivities] = useState([""]);
-  const [error, setError] = useState("");
-  const [errorType, setErrorType] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [activities, setActivities] = useState(['']);
+  const [error, setError] = useState('');
+  const [errorType, setErrorType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
-  const { createDestination, isCreating, hasCreateError } = useDestinations();
+  const { createDestination, isCreating } = useDestinations();
 
   useEffect(() => {
     setFadeIn(true);
   }, []);
 
   const handleAddActivity = () => {
-    setActivities([...activities, ""]);
+    setActivities([...activities, '']);
   };
 
   const handleRemoveActivity = (index: number) => {
@@ -52,8 +52,8 @@ export const CreateDestinationPage = () => {
       !description ||
       activities.some((activity) => !activity.trim())
     ) {
-      setError("All fields should be filled");
-      setErrorType("error");
+      setError('All fields should be filled');
+      setErrorType('error');
       return;
     }
 
@@ -66,16 +66,16 @@ export const CreateDestinationPage = () => {
 
     try {
       await createDestination(destination);
-      setError("Destination created successfully!");
-      setErrorType("success");
-      setName("");
-      setDescription("");
-      setActivities([""]);
+      setError('Destination created successfully!');
+      setErrorType('success');
+      setName('');
+      setDescription('');
+      setActivities(['']);
       setOpenModal(true);
     } catch (err) {
       console.error(err);
-      setError((err as Error).message || "Failed to create destination");
-      setErrorType("error");
+      setError((err as Error).message || 'Failed to create destination');
+      setErrorType('error');
     }
   };
 
@@ -90,9 +90,9 @@ export const CreateDestinationPage = () => {
         <Box
           my={4}
           sx={{
-            transition: "opacity 0.5s, transform 0.5s",
+            transition: 'opacity 0.5s, transform 0.5s',
             opacity: fadeIn ? 1 : 0,
-            transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+            transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
           {error && <ErrorBox message={error} type={errorType} />}
@@ -154,7 +154,7 @@ export const CreateDestinationPage = () => {
               sx={{ mt: 4 }}
               disabled={isCreating}
             >
-              {isCreating ? "Creating..." : "Create Destination"}
+              {isCreating ? 'Creating...' : 'Create Destination'}
             </Button>
           </Tooltip>
         </Box>

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -12,10 +12,10 @@ export const updateUser = async <T extends string>(
 ) => {
   try {
     const response = await axios.patch(BACKEND_URL + `/users/${userId}`, data);
-    console.info("User updated successfully:", response.data);
+    console.info('User updated successfully:', response.data);
     return response.data;
   } catch (error) {
-    console.error("Error updating user:", error);
+    console.error('Error updating user:', error);
     throw error;
   }
 };
@@ -26,12 +26,12 @@ export const getUserData = async (userId: string, token: string) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const response = await axios.get(BACKEND_URL + "/users/" + userId, {
+    const response = await axios.get(BACKEND_URL + '/users/' + userId, {
       headers,
     });
     return response.data;
   } catch (error) {
-    console.error("Error loading user:", error);
+    console.error('Error loading user:', error);
     throw error;
   }
 };
@@ -41,7 +41,7 @@ export const deleteUser = async (userId: string) => {
     const response = await axios.delete(BACKEND_URL + `/users/${userId}`);
     return response.data;
   } catch (error) {
-    console.error("Error deleting user:", error);
+    console.error('Error deleting user:', error);
     throw error;
   }
 };

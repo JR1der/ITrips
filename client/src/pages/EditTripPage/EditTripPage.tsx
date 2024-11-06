@@ -1,38 +1,36 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
-    Box,
-    Button,
-    Card,
-    Chip,
-    Fade,
-    IconButton,
-    Modal,
-    TextField,
-    Typography,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../../auth/useAuth.ts";
-import ErrorBox from "../../components/ErrorBox.tsx";
-import { LoadingComponent } from "../../components/LoadingComponent.tsx";
-import { useDestinations } from "../../hooks/useDestinations.ts";
-import { useTrips } from "../../hooks/useTrips.ts";
-import { BaseLayout } from "../../layout/BaseLayout.tsx";
-import { EditedModal } from "../EditTripPage/components/EditedModal.tsx";
-import { AccordionDestination } from "./components/AccordionDestination.tsx";
+  Box,
+  Button,
+  Card,
+  Chip,
+  Fade,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../auth/useAuth.ts';
+import ErrorBox from '../../components/ErrorBox.tsx';
+import { LoadingComponent } from '../../components/LoadingComponent.tsx';
+import { useDestinations } from '../../hooks/useDestinations.ts';
+import { useTrips } from '../../hooks/useTrips.ts';
+import { BaseLayout } from '../../layout/BaseLayout.tsx';
+import { EditedModal } from '../EditTripPage/components/EditedModal.tsx';
+import { AccordionDestination } from './components/AccordionDestination.tsx';
 
 export const EditTripPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedDestinations, setSelectedDestinations] = useState<
-    any[]
-  >([]);
-  const [error, setError] = useState("");
-  const [errorType, setErrorType] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedDestinations, setSelectedDestinations] = useState<any[]>([]);
+  const [error, setError] = useState('');
+  const [errorType, setErrorType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [showEditedModal, setShowEditedModal] = useState(false);
   const { activeUser } = useAuth();
@@ -47,21 +45,21 @@ export const EditTripPage = () => {
   useEffect(() => {
     if (trip) {
       if (activeUser?.id !== trip.userId) {
-        navigate("/trips");
+        navigate('/trips');
         return;
       }
     }
     if (trip && !tripLoading && !tripError) {
-      setName(trip.name || "");
-      setDescription(trip.description || "");
+      setName(trip.name || '');
+      setDescription(trip.description || '');
       setSelectedDestinations(trip.destinations || []);
     }
   }, [trip, tripLoading, tripError]);
 
   const handleEditTrip = async () => {
     if (!name || !description || selectedDestinations.length === 0) {
-      setError("All fields should be filled");
-      setErrorType("error");
+      setError('All fields should be filled');
+      setErrorType('error');
       return;
     }
 
@@ -75,8 +73,8 @@ export const EditTripPage = () => {
 
     try {
       await updateTrip(updatedTrip);
-      setError("Trip updated successfully");
-      setErrorType("success");
+      setError('Trip updated successfully');
+      setErrorType('success');
       setShowEditedModal(true);
       if (!trip || trip.name !== name || trip.description !== description) {
         fetchTripById(id);
@@ -84,9 +82,9 @@ export const EditTripPage = () => {
     } catch (err) {
       console.error(err);
       setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
+        err instanceof Error ? err.message : 'An unknown error occurred'
       );
-      setErrorType("error");
+      setErrorType('error');
     }
   };
 
@@ -138,13 +136,13 @@ export const EditTripPage = () => {
               sx={{
                 mt: 2,
                 p: 2,
-                backgroundColor: "white",
-                "&:hover": { backgroundColor: "grey.300" },
-                transition: "0.5s",
+                backgroundColor: 'white',
+                '&:hover': { backgroundColor: 'grey.300' },
+                transition: '0.5s',
               }}
             >
               <Box display="flex" alignItems="center">
-                <Typography variant="h6" sx={{ color: "primary.dark" }}>
+                <Typography variant="h6" sx={{ color: 'primary.dark' }}>
                   {destination.name}
                 </Typography>
                 <IconButton
@@ -166,8 +164,8 @@ export const EditTripPage = () => {
                     label={activity}
                     sx={{
                       mr: 1,
-                      backgroundColor: "primary.main",
-                      color: "white",
+                      backgroundColor: 'primary.main',
+                      color: 'white',
                     }}
                   />
                 ))}
@@ -184,12 +182,12 @@ export const EditTripPage = () => {
             <Fade in={openModal}>
               <Box
                 sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: { xs: "80%", sm: 400 },
-                  bgcolor: "background.paper",
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: { xs: '80%', sm: 400 },
+                  bgcolor: 'background.paper',
                   boxShadow: 24,
                   p: 4,
                   borderRadius: 2,
@@ -212,7 +210,7 @@ export const EditTripPage = () => {
                 )}
                 {!destLoading && !destError && (
                   <Box
-                    sx={{ maxHeight: "calc(100vh - 200px)", overflow: "auto" }}
+                    sx={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}
                   >
                     {destinations.map((destination) => (
                       <AccordionDestination

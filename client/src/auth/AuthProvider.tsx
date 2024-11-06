@@ -1,10 +1,10 @@
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import React, { useCallback, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getUserData } from "../services/UserAPI";
-import { AuthContext, User } from "./authContext";
-import { setupAxiosInterceptors } from "./authInterceptor";
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getUserData } from '../services/UserAPI';
+import { AuthContext, User } from './authContext';
+import { setupAxiosInterceptors } from './authInterceptor';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const saveTokensToLocalStorage = (activeToken: string) => {
-    localStorage.setItem("token", activeToken);
+    localStorage.setItem('token', activeToken);
   };
 
   const checkTokenExpiration = useCallback((token: string): boolean => {
@@ -29,16 +29,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const currentTime = Date.now() / 1000;
       return decodedToken.exp ? decodedToken.exp > currentTime : false;
     } catch (error) {
-      console.error("Error decoding token:", error);
+      console.error('Error decoding token:', error);
       return false;
     }
   }, []);
 
   const removeExpiredToken = useCallback((token: string) => {
-    localStorage.removeItem("token");
-    const otherTokens = JSON.parse(localStorage.getItem("otherTokens") ?? "[]");
+    localStorage.removeItem('token');
+    const otherTokens = JSON.parse(localStorage.getItem('otherTokens') ?? '[]');
     const updatedOtherTokens = otherTokens.filter((t: string) => t !== token);
-    localStorage.setItem("otherTokens", JSON.stringify(updatedOtherTokens));
+    localStorage.setItem('otherTokens', JSON.stringify(updatedOtherTokens));
   }, []);
 
   const safeGetUserData = useCallback(
@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return (await getUserData(userId, token)) as User;
       } catch (error) {
         console.log(token);
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
         return null;
       }
     },
@@ -62,18 +62,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       const searchParams = new URLSearchParams(location.search);
-      const code = searchParams.get("code");
+      const code = searchParams.get('code');
 
       if (code && activeUser?.token) {
-        searchParams.delete("code");
+        searchParams.delete('code');
         const newSearch = searchParams.toString();
         const newPath = `${location.pathname}${
-          newSearch ? `?${newSearch}` : ""
+          newSearch ? `?${newSearch}` : ''
         }`;
         navigate(newPath, { replace: true });
       }
 
-      const storedToken = localStorage.getItem("token");
+      const storedToken = localStorage.getItem('token');
 
       if (storedToken) {
         try {
@@ -94,12 +94,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               id: decodedToken.id,
             });
           } else {
-            console.log("Token expired or user data fetch failed");
-            localStorage.removeItem("token");
+            console.log('Token expired or user data fetch failed');
+            localStorage.removeItem('token');
           }
         } catch (error) {
-          console.error("Token is invalid", error);
-          localStorage.removeItem("token");
+          console.error('Token is invalid', error);
+          localStorage.removeItem('token');
         }
       }
 
@@ -135,9 +135,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsAuthenticated(true);
       setActiveUser(user);
 
-      setTimeout(() => navigate("/home"), 1500);
+      setTimeout(() => navigate('/home'), 1500);
     } catch (error) {
-      handleError(error, "login");
+      handleError(error, 'login');
     }
   };
 
@@ -155,29 +155,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (response.status === 201) {
         login(email, password);
       } else {
-        console.error("Registration failed");
+        console.error('Registration failed');
       }
     } catch (error) {
-      handleError(error, "registration");
+      handleError(error, 'registration');
     }
   };
 
   const logout = useCallback(() => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
     setActiveUser(null);
-    navigate("/login");
+    navigate('/login');
   }, [navigate]);
 
   const clearActiveUser = useCallback(() => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
     setActiveUser(null);
   }, []);
 
   const refreshUserData = async () => {
     if (!activeUser) {
-      console.error("No active user to refresh");
+      console.error('No active user to refresh');
       return;
     }
 
@@ -190,18 +190,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           email: userData.email,
         });
       } else {
-        console.error("Failed to refresh user data");
+        console.error('Failed to refresh user data');
         clearActiveUser();
       }
     } catch (error) {
-      console.error("Error refreshing user data:", error);
-      handleError(error, "refresh user data");
+      console.error('Error refreshing user data:', error);
+      handleError(error, 'refresh user data');
     }
   };
 
-  const handleError = (error: unknown, context: string) => {
+  const handleError = (error: unknown) => {
     if (axios.isAxiosError(error) && error.response) {
-      const errorMessage = error.response.data.error;
     }
   };
 
