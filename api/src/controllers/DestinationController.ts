@@ -4,16 +4,17 @@ import { DestinationModel } from "../models/DestinationModel";
 
 // Create a destination
 export const createDestination = async (req: Request, res: Response) => {
-  const { name, description, activities, photos } = req.body;
+  const { userId, name, description, activities, photos } = req.body;
 
-  if (!name || !description) {
+  if (!userId || !name || !description) {
     return res.status(400).json({
-      error: "Name, description, activities and photos are required",
+      error: "Name, description, activities, userId and photos are required",
     });
   }
 
   try {
     const destination = new DestinationModel({
+      userId: userId,
       name: name,
       description: description,
       activities: activities,
@@ -58,7 +59,21 @@ export const getDestinationById = async (req: Request, res: Response) => {
 
 // Update a destination
 export const updateDestination = async (req: Request, res: Response) => {
+  const userId = req.body.userId;
+
   try {
+    const destination = await DestinationModel.findById(req.params.id);
+
+    if (!destination) {
+      return res.status(404).json({ error: "Destination not found" });
+    }
+
+    if (destination.userId !== userId) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to update this destination" });
+    }
+
     const { name, description, activities, photos } = req.body;
 
     if (!name || !description) {
@@ -67,15 +82,13 @@ export const updateDestination = async (req: Request, res: Response) => {
         .json({ error: "Name and description are required" });
     }
 
-    const destination = await DestinationModel.findByIdAndUpdate(
+    const updatedDestination = await DestinationModel.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!destination) {
-      return res.status(404).json({ error: "Destination not found" });
-    }
-    return res.json(destination);
+
+    return res.json(updatedDestination);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }
@@ -83,35 +96,23 @@ export const updateDestination = async (req: Request, res: Response) => {
 
 // Delete a destination
 export const deleteDestination = async (req: Request, res: Response) => {
+  const userId = req.body.userId; // Assuming userId is sent in the request body
+
   try {
-    const destination = await DestinationModel.findByIdAndDelete(req.params.id);
+    const destination = await DestinationModel.findById(req.params.id);
+
     if (!destination) {
       return res.status(404).json({ error: "Destination not found" });
     }
+
+    if (destination.userId !== userId) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to delete this destination" });
+    }
+
+    await DestinationModel.findByIdAndDelete(req.params.id);
     return res.json({ message: "Destination deleted" });
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
-  }
-};
-
-//Add destination to favourites
-export const addDestinationToFavorites = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const { id } = req.params;
-    const destination = await DestinationModel.findById(id);
-
-    if (!destination) {
-      return res.status(404).json({ error: "Destination not found" });
-    }
-
-    if (destination.favorite === true) destination.favorite = false;
-    else if (destination.favorite === false) destination.favorite = true;
-    await destination.save();
-
-    return res.json(destination);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }

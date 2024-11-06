@@ -147,23 +147,3 @@ export const search = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
-
-//Add trip to favourites
-export const addTripToFavorites = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const trip = await TripModel.findById(id);
-
-    if (!trip) {
-      return res.status(404).json({ error: "Destination not found" });
-    }
-
-    if (trip.favorite === true) trip.favorite = false;
-    else if (trip.favorite === false) trip.favorite = true;
-    await trip.save();
-
-    return res.json(trip);
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
-  }
-};

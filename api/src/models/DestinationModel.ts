@@ -8,7 +8,6 @@ const destinationSchema: Schema<IDestinationModel> =
     name: { type: String, required: true },
     description: String,
     activities: [String],
-    favorite: { type: Boolean, default: false },
   });
 
 // Define and export the DestinationModel

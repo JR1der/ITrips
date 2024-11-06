@@ -4,5 +4,4 @@ export interface IDestinationModel extends Document {
   name: string;
   description: string;
   activities: string[];
-  favorite: boolean;
 }

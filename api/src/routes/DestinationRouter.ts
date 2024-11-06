@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {
-    addDestinationToFavorites,
     createDestination,
     deleteDestination,
     fetchDestinationImages,
@@ -8,15 +7,16 @@ import {
     getDestinations,
     updateDestination,
 } from "../controllers/DestinationController";
+import { JwtDecode } from "../middlewares/Authorization";
 
 const router = Router();
 
-router.post("/create", createDestination);
-router.get("/get", getDestinations);
-router.get("/get/:id", getDestinationById);
-router.put("/update/:id", updateDestination);
-router.delete("/delete/:id", deleteDestination);
-router.put("/:id/favorite", addDestinationToFavorites);
+
+router.get("/", getDestinations);
+router.get("/:id", getDestinationById);
 router.get("/image/:destinationName", fetchDestinationImages);
+router.post("/create",JwtDecode, createDestination);
+router.put("/update/:id", JwtDecode,updateDestination);
+router.delete("/delete/:id",JwtDecode, deleteDestination);
 
 export default router;

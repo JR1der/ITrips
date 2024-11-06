@@ -4,5 +4,4 @@ export interface ITripModel extends Document {
   name: string;
   description: string;
   destinations: string[];
-  favorite: boolean;
 }

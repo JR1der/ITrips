@@ -6,7 +6,7 @@ const connectDB = async (url: string) => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     } as ConnectOptions);
-    console.log(`Connected to DB with URI: ${url}`);
+    console.log("Connected to MongoDB!");
   }
 };
 

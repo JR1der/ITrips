@@ -1,6 +1,5 @@
 import express from "express";
 import {
-    addTripToFavorites,
     createTrip,
     deleteTrip,
     getDestinationOfTrip,
@@ -9,17 +8,18 @@ import {
     search,
     updateTrip,
 } from "../controllers/TripController";
+import { JwtDecode } from "../middlewares/Authorization";
 
 const router = express.Router();
 
 // Routes for trips
-router.post("/", createTrip); // Create a trip
-router.get("/", getTrips); // Get all trips
-router.get("/:id", getTripById); // Get a trip by ID\
-router.get("/tripDestinations/:id", getDestinationOfTrip); // Get trip destinations
-router.put("/:id", updateTrip); // Update a trip
-router.delete("/:id", deleteTrip); // Delete a trip
-router.get("/search", search); // Search trip
-router.put("/:id/favorite", addTripToFavorites); // Add trip to favorites
+
+router.get("/", getTrips);
+router.get("/:id", getTripById);
+router.get("/tripDestinations/:id", getDestinationOfTrip);
+router.post("/", JwtDecode, createTrip); // Create a trip
+router.put("/:id", JwtDecode, updateTrip); // Update a trip
+router.delete("/:id", JwtDecode, deleteTrip); // Delete a trip
+router.get("/search", JwtDecode, search); // Search trip
 
 export default router;
