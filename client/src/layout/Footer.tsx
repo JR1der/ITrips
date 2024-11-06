@@ -19,8 +19,8 @@ export const Footer = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography color="info.dark" variant="subtitle1">
-              &copy; {new Date().getFullYear()} iForms. All rights reserved.
+            <Typography variant="subtitle1">
+              &copy; {new Date().getFullYear()} ITrips. All rights reserved.
             </Typography>
           </Grid>
         </Grid>
