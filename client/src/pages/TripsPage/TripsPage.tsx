@@ -1,9 +1,9 @@
 import {
-    Box,
-    Button,
-    CircularProgress,
-    Tooltip,
-    Typography,
+  Box,
+  Button,
+  CircularProgress,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,14 +13,6 @@ import { useTrips } from "../../hooks/useTrips.ts";
 import { BaseLayout } from "../../layout/BaseLayout.tsx";
 import { DeleteConfirmationModal } from "./components/DeleteConfirmationModal.tsx";
 import { TripItem } from "./components/TripItem.tsx";
-
-interface Trip {
-  _id: string;
-  userId: string;
-  name: string;
-  destinations: any[];
-  favorite: boolean;
-}
 
 export const TripsPage = () => {
   const { activeUser } = useAuth();
@@ -39,8 +31,11 @@ export const TripsPage = () => {
     }
   }, [isLoading]);
 
-  const handleDeleteTrip = async (tripId: string) => {
-    await deleteTrip(tripId);
+  const handleDeleteTrip = async () => {
+    await deleteTrip({
+      id: selectedTrip.id,
+      userId: activeUser?.id,
+    });
     setModalOpen(false);
   };
 
@@ -49,7 +44,10 @@ export const TripsPage = () => {
     setModalOpen(true);
   };
 
-  const favoriteTrips = trips.filter((trip) => trip.favorite);
+  const userTrips = trips.filter((trip: any) => trip.userId === activeUser?.id);
+  const otherTrips = trips.filter(
+    (trip: any) => trip.userId !== activeUser?.id
+  );
 
   return (
     <BaseLayout>
@@ -97,9 +95,7 @@ export const TripsPage = () => {
             type="info"
           />
         )}
-
-        {/* Favorite Trips */}
-        {favoriteTrips.length > 0 && (
+        {userTrips.length > 0 && (
           <>
             <Typography
               variant="h5"
@@ -112,21 +108,22 @@ export const TripsPage = () => {
                 textAlign: "center",
               }}
             >
-              Favorite Trips
+              Your Trips
             </Typography>
-            {favoriteTrips.map((trip: Trip) => (
+            {userTrips.map((trip: any) => (
               <TripItem
                 key={trip._id}
                 activeUserId={activeUser?.id}
                 trip={trip}
-                handleDeleteTrip={handleOpenModal}
+                handleDeleteTrip={(id: string, name: string) =>
+                  handleOpenModal(id, name)
+                }
               />
             ))}
           </>
         )}
-
         {/* All Trips */}
-        {trips && (
+        {otherTrips.length > 0 && (
           <>
             <Typography
               variant="h5"
@@ -141,12 +138,14 @@ export const TripsPage = () => {
             >
               All Trips
             </Typography>
-            {trips.map((trip: Trip) => (
+            {otherTrips.map((trip: any) => (
               <TripItem
                 key={trip._id}
                 activeUserId={activeUser?.id}
                 trip={trip}
-                handleDeleteTrip={handleOpenModal}
+                handleDeleteTrip={(id: string, name: string) =>
+                  handleOpenModal(id, name)
+                }
               />
             ))}
           </>
@@ -155,7 +154,7 @@ export const TripsPage = () => {
       <DeleteConfirmationModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        onDelete={() => handleDeleteTrip(selectedTrip.id)}
+        onDelete={handleDeleteTrip} // Call the updated delete function
         tripName={selectedTrip.name}
       />
     </BaseLayout>

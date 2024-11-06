@@ -32,7 +32,10 @@ export const DestinationsPage = () => {
   }, [isFetchingDestinations]);
 
   const handleDeleteDestination = async () => {
-    await deleteDestination(selectedDestination.id);
+    await deleteDestination({
+      id: selectedDestination.id,
+      userId: activeUser?.id,
+    });
     setModalOpen(false);
   };
 
@@ -51,8 +54,7 @@ export const DestinationsPage = () => {
     (destination: any) => destination.userId === activeUser?.id
   );
   const otherDestinations = destinations.filter(
-    (destination: any) =>
-      destination.userId !== activeUser?.id && !destination.favorite
+    (destination: any) => destination.userId !== activeUser?.id
   );
 
   return (

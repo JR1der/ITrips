@@ -64,8 +64,15 @@ export const getTripById = async (req: Request, res: Response) => {
 
 // Update a trip
 export const updateTrip = async (req: Request, res: Response) => {
+  const userId = req.body.userId;
+
   try {
     const { name, description, destinations } = req.body;
+    const trip = await TripModel.findById(req.params.id);
+
+    if (!trip) {
+      return res.status(404).json({ error: "Trip not found" });
+    }
 
     if (!name || !description) {
       return res
@@ -73,13 +80,21 @@ export const updateTrip = async (req: Request, res: Response) => {
         .json({ error: "Name and description are required" });
     }
 
-    const trip = await TripModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!trip) {
-      return res.status(404).json({ error: "Trip not found" });
+    if (trip.userId !== userId) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to update this trip" });
     }
-    return res.json(trip);
+
+    const updatedTrip = await TripModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
+
+    return res.json(updatedTrip);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }
@@ -87,11 +102,22 @@ export const updateTrip = async (req: Request, res: Response) => {
 
 // Delete a trip
 export const deleteTrip = async (req: Request, res: Response) => {
+  const userId = req.body.userId;
+
   try {
-    const trip = await TripModel.findByIdAndDelete(req.params.id);
+    const trip = await TripModel.findById(req.params.id);
+
     if (!trip) {
       return res.status(404).json({ error: "Trip not found" });
     }
+
+    if (trip.userId !== userId) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to delete this trip" });
+    }
+
+    await TripModel.findByIdAndDelete(req.params.id);
     return res.json({ message: "Trip deleted" });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

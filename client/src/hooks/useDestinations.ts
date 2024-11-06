@@ -42,7 +42,6 @@ export const useDestinations = () => {
     }
   };
 
-  // Mutation for creating a new destination
   const {
     mutate: createDestination,
     isLoading: isCreating,
@@ -80,8 +79,10 @@ export const useDestinations = () => {
     isLoading: isDeleting,
     isError: hasDeleteError,
   } = useMutation({
-    mutationFn: async (id: string) => {
-      await axios.delete(`${BACKEND_URL}/destinations/delete/${id}`);
+    mutationFn: async ({ id, userId }: { id: string; userId: string }) => {
+      await axios.delete(`${BACKEND_URL}/destinations/delete/${id}`, {
+        data: { userId },
+      });
       return id;
     },
     onSuccess: () => queryClient.invalidateQueries(["destinations"]),

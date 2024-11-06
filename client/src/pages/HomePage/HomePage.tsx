@@ -6,8 +6,8 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { BaseLayout } from "../../layout/BaseLayout";
 import { useAuth } from "../../auth/useAuth";
+import { BaseLayout } from "../../layout/BaseLayout";
 
 export const HomePage = () => {
   const { activeUser } = useAuth();
@@ -25,9 +25,7 @@ export const HomePage = () => {
             Welcome, {activeUser ? `${activeUser.username}` : "Guest"}!
           </Typography>
           <Typography variant="h5" color="textSecondary" paragraph>
-            Discover <span style={{ color: "black" }}>IForms</span> - an awesome
-            platform where you can create, share, and analyze forms
-            effortlessly.
+            Welcome to <span style={{ color: "black" }}>ITrips</span> – your go-to platform for creating, exploring, and sharing amazing trips and destinations.
           </Typography>
         </Box>
 
@@ -47,18 +45,13 @@ export const HomePage = () => {
                   gutterBottom
                   sx={{ fontWeight: "bold", color: "primary.dark" }}
                 >
-                  Create Forms
+                  Plan Your Dream Trips
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Easily create customized forms to collect data and feedback.
-                  Our intuitive form builder lets you add various question
-                  types, like short answers and rating scales, for gathering
-                  precise information.
+                  Easily create custom trips by selecting your dream destinations, dates, and travel details. Whether you're exploring new cities or embarking on a nature adventure, our platform makes trip planning seamless.
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Whether you’re conducting surveys or collecting customer
-                  feedback, our platform has the tools for professional,
-                  engaging forms.
+                  Start your next adventure by building a complete itinerary that fits your style and needs.
                 </Typography>
               </CardContent>
             </Card>
@@ -73,16 +66,13 @@ export const HomePage = () => {
                   gutterBottom
                   sx={{ fontWeight: "bold", color: "primary.dark" }}
                 >
-                  Share Forms
+                  Discover New Destinations
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Share your forms effortlessly with links, and maximize your
-                  audience reach. Embed forms on your website for a seamless
-                  user experience.
+                  Explore an extensive list of destinations around the world. Whether you’re looking for a beach vacation, a cultural experience, or a mountain retreat, you’ll find a destination that excites you.
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  With our sharing tools, you can ensure that your forms receive
-                  the visibility they deserve.
+                  Browse through various travel spots and add them to your trip plans to create your perfect adventure.
                 </Typography>
               </CardContent>
             </Card>
@@ -97,15 +87,13 @@ export const HomePage = () => {
                   gutterBottom
                   sx={{ fontWeight: "bold", color: "primary.dark" }}
                 >
-                  Get Detailed Statistics
+                  Share Your Trips with Friends
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Analyze responses with real-time data insights, response
-                  rates, and question-by-question breakdowns.
+                  Share your trip itineraries with friends and family to keep them in the loop. Send them a link to view your trip details, suggest changes, or even join the adventure!
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Create reports and visualizations to interpret data, using
-                  filters and advanced tools to explore trends and patterns.
+                  Perfect for group travels and family vacations, sharing your travel plans has never been easier.
                 </Typography>
               </CardContent>
             </Card>
@@ -120,17 +108,13 @@ export const HomePage = () => {
                   gutterBottom
                   sx={{ fontWeight: "bold", color: "primary.dark" }}
                 >
-                  Sentiment Analysis
+                  Visualize Your Journey
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Use sentiment analysis to understand the emotional tone in
-                  feedback, leveraging natural language processing to analyze
-                  open-ended responses.
+                  View your entire trip in a visual format, with a clear itinerary and destination maps. Our platform helps you plan and visualize your travel journey in a way that’s easy to follow.
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Whether measuring customer satisfaction or public opinion, our
-                  tools provide insights into sentiment and attitude in
-                  responses.
+                  From estimated travel times to activity suggestions, you’ll have all the info you need to make your journey smooth and stress-free.
                 </Typography>
               </CardContent>
             </Card>

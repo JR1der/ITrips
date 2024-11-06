@@ -96,7 +96,7 @@ export const updateDestination = async (req: Request, res: Response) => {
 
 // Delete a destination
 export const deleteDestination = async (req: Request, res: Response) => {
-  const userId = req.body.userId; // Assuming userId is sent in the request body
+  const userId = req.body.userId;
 
   try {
     const destination = await DestinationModel.findById(req.params.id);

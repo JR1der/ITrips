@@ -1,18 +1,20 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
-    Box,
-    Button,
-    Fade,
-    Modal,
-    TextField,
-    Tooltip,
-    Typography,
+  Box,
+  Button,
+  Fade,
+  Modal,
+  TextField,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../auth/useAuth.ts";
 import ErrorBox from "../../components/ErrorBox.tsx";
 import { LoadingComponent } from "../../components/LoadingComponent.tsx";
 import { useDestinations } from "../../hooks/useDestinations.ts";
+import { useTrips } from "../../hooks/useTrips.ts";
 import { BaseLayout } from "../../layout/BaseLayout.tsx";
 import { CreatedModal } from "./components/CreatedModal.tsx";
 import { DestinationItem } from "./components/DestinationItem.tsx";
@@ -26,6 +28,8 @@ export interface Destination {
 }
 
 export const CreateTripPage: React.FC = () => {
+  const { activeUser } = useAuth();
+  const { createTrip, isCreating, hasCreateError } = useTrips();
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const { destinations, isLoading, isError } = useDestinations();
@@ -37,7 +41,6 @@ export const CreateTripPage: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [fadeIn, setFadeIn] = useState<boolean>(false);
-  const api = import.meta.env.REACT_APP_API_URL;
 
   useEffect(() => {
     setFadeIn(true);
@@ -56,36 +59,25 @@ export const CreateTripPage: React.FC = () => {
       setError(
         "All fields should be filled and at least one destination selected."
       );
-      setErrorType("error");
       return;
     }
 
     const tripData = {
+      userId: activeUser?.id,
       name,
       description,
-      destinations: selectedDestinations.map((destination) => destination._id),
+      destinations: selectedDestinations.map((dest) => dest._id),
     };
 
     try {
-      const res = await fetch(`${api}/trip/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tripData),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to create trip");
-      }
-
+      await createTrip(tripData);
       setOpenCreationModal(true);
       setName("");
       setDescription("");
       setSelectedDestinations([]);
+      setError("");
     } catch (error) {
-      setError((error as Error).message);
-      setErrorType("error");
+      setError("An error occurred while creating the trip.");
     }
   };
 

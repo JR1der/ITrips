@@ -14,9 +14,9 @@ const router = express.Router();
 
 // Routes for trips
 
-router.get("/", getTrips);
-router.get("/:id", getTripById);
-router.get("/tripDestinations/:id", getDestinationOfTrip);
+router.get("/", getTrips); // Get trips
+router.get("/:id", getTripById); // Get a trip by it's id
+router.get("/tripDestinations/:id", getDestinationOfTrip); // Get all destinations of a trip
 router.post("/", JwtDecode, createTrip); // Create a trip
 router.put("/:id", JwtDecode, updateTrip); // Update a trip
 router.delete("/:id", JwtDecode, deleteTrip); // Delete a trip

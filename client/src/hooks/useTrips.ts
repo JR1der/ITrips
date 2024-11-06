@@ -87,8 +87,8 @@ export const useTrips = () => {
     isLoading: isDeleting,
     isError: hasDeleteError,
   } = useMutation({
-    mutationFn: async (id: string) => {
-      await axios.delete(`${BACKEND_URL}/trips/${id}`);
+    mutationFn: async ({ id, userId }: { id: string; userId: string }) => {
+      await axios.delete(`${BACKEND_URL}/trips/${id}`, { data: { userId } });
       return id;
     },
     onSuccess: () => queryClient.invalidateQueries(["trips"]),

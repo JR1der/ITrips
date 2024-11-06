@@ -11,6 +11,7 @@ import { SingleDestinationPage } from "../pages/SingleDestinationPage/SingleDest
 import { SingleTripPage } from "../pages/SingleTripPage/SingleTripPage";
 import { TripsPage } from "../pages/TripsPage/TripsPage";
 import { WelcomePage } from "../pages/WelcomePage/WelcomePage";
+import { ProfilePage } from "../pages/ProfilePage";
 
 export type RouteConfig = RouteProps & {
   path: string;
@@ -42,6 +43,14 @@ export const routes: RouteConfig[] = [
     path: "/home",
     element: <HomePage />,
     title: "Home",
+    order: 0,
+  },
+  {
+    isPrivate: true,
+    isPublic: false,
+    path: "/profile",
+    element: <ProfilePage />,
+    title: "Profile",
     order: 0,
   },
   {
