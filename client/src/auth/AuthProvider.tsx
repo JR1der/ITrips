@@ -137,7 +137,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       setTimeout(() => navigate('/home'), 1500);
     } catch (error) {
-      handleError(error, 'login');
+      handleError(error);
     }
   };
 
@@ -158,7 +158,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.error('Registration failed');
       }
     } catch (error) {
-      handleError(error, 'registration');
+      handleError(error);
     }
   };
 
@@ -195,7 +195,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     } catch (error) {
       console.error('Error refreshing user data:', error);
-      handleError(error, 'refresh user data');
+      handleError(error);
     }
   };
 

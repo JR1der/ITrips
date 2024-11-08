@@ -54,7 +54,6 @@ export const SingleDestinationPage = () => {
       }
     };
 
-    // Fetch the image only if it hasn't been fetched before
     if (destination && destination.name && !destinationImage) {
       fetchImage();
     }
@@ -141,24 +140,43 @@ export const SingleDestinationPage = () => {
                 </Box>
               </Card>
               {destinationImage ? (
-                <Card sx={{ p: 2 }}>
+                <Card sx={{ backgroundColor: 'primary.main', p: 2 }}>
                   <Box sx={{ maxWidth: '100%', mb: 2 }}>
                     <Typography
                       variant="h5"
                       sx={{
                         mb: 2,
-                        color: 'primary.dark',
+                        color: 'white',
                         fontWeight: 'bold',
                         textAlign: 'center',
                       }}
                     >
                       Image of {destination?.name}
                     </Typography>
-                    <img
-                      src={destinationImage}
-                      alt="Destination"
-                      style={{ width: '100%' }}
-                    />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        border: '2px solid',
+                        borderColor: 'primary.main',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        width: '100%',
+                        maxWidth: '100%',
+                        maxHeight: '80vh',
+                        margin: '0 auto',
+                      }}
+                    >
+                      <img
+                        src={destinationImage}
+                        alt="Destination"
+                        style={{
+                          maxWidth: '100%',
+                          maxHeight: '100%',
+                        }}
+                      />
+                    </Box>
                   </Box>
                 </Card>
               ) : (

@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useAuth } from '../auth/useAuth';
+import { SearchBar } from './SearchBar';
 
 const authPages = { Home: '/', Trips: '/trips', Destinations: '/destinations' };
 const guestPages = {
@@ -38,15 +39,12 @@ export const Header = () => {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   const handleLogout = () => {
     logout();
     handleCloseUserMenu();
@@ -59,7 +57,9 @@ export const Header = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DynamicFormIcon sx={{ display: { xs: 'none', md: 'flex' } }} />
+          <DynamicFormIcon
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -72,15 +72,17 @@ export const Header = () => {
               letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
+              mr: 2,
             }}
           >
             iTrips
           </Typography>
 
+          {/* Mobile Menu Icon */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -91,23 +93,15 @@ export const Header = () => {
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
+              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
+              sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {Object.entries(pages).map(([page, path]) => (
-                <MenuItem key={path} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Link href={path} color="inherit" underline="none">
                     <Typography textAlign="center">{page}</Typography>
                   </Link>
@@ -116,37 +110,16 @@ export const Header = () => {
             </Menu>
           </Box>
 
-          <DynamicFormIcon
-            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-          />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            iTrips
-          </Typography>
-
+          {/* Desktop Navigation Links */}
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: 'none', md: 'flex', justifyContent: 'center' },
-              gap: '10px',
+              gap: '15px',
             }}
           >
             {Object.entries(pages).map(([page, path]) => (
-              <Link key={path} href={path} color="inherit" underline="none">
+              <Link key={page} href={path} color="inherit" underline="none">
                 <Typography variant="h6" textAlign="center">
                   {page}
                 </Typography>
@@ -154,9 +127,15 @@ export const Header = () => {
             ))}
           </Box>
 
+          {/* Search Bar */}
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+            <SearchBar />
+          </Box>
+
+          {/* User Settings */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{}}>
+              <IconButton onClick={handleOpenUserMenu}>
                 {isAuthenticated ? (
                   <Typography variant="h6" color="white" sx={{ pr: 1 }}>
                     Welcome, {activeUser?.username}
@@ -173,15 +152,9 @@ export const Header = () => {
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
@@ -196,7 +169,6 @@ export const Header = () => {
                     href={path === 'logout' ? '#' : path}
                     color="inherit"
                     underline="none"
-                    onClick={setting === 'Logout' ? handleLogout : undefined}
                   >
                     <Typography variant="body1" textAlign="center">
                       {setting}

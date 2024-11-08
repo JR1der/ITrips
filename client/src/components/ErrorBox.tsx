@@ -10,6 +10,7 @@ const ErrorBox: React.FC<ErrorProps> = ({ message, type }) => {
   return (
     <Box
       sx={{
+        mt: 2,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
