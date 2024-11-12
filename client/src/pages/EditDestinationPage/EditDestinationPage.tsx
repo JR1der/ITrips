@@ -26,13 +26,15 @@ export const EditDestinationPage = () => {
   const [description, setDescription] = useState<string>('');
   const [activities, setActivities] = useState<string[]>(['']);
   const [error, setError] = useState<string>('');
-  const [errorType, setErrorType] = useState<string>('');
+  const [errorType, setErrorType] = useState<
+    'error' | 'info' | 'success' | 'warning'
+  >('error');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [fadeIn, setFadeIn] = useState<boolean>(false);
   const {
     destination,
     isFetchingDestinations,
-    hasFetchError,
+    hasFetchDestError,
     fetchDestinationById,
     updateDestination,
     isUpdating,
@@ -52,7 +54,7 @@ export const EditDestinationPage = () => {
       }
       setFadeIn(true);
       setName(destination.name);
-      setDescription(destination.description);
+      setDescription(destination.description || '');
       setActivities(destination.activities || ['']);
     }
   }, [destination, activeUser, navigate]);
@@ -84,9 +86,9 @@ export const EditDestinationPage = () => {
     }
 
     const updatedDestination = {
-      _id: id,
+      _id: id || '',
       name,
-      userId: activeUser?.id,
+      userId: activeUser?.id || '',
       description,
       activities,
     };
@@ -101,7 +103,7 @@ export const EditDestinationPage = () => {
         destination.name !== name ||
         destination.description !== description
       ) {
-        fetchDestinationById(id);
+        fetchDestinationById(id || '');
       }
     } catch (err) {
       console.error(err);
@@ -120,7 +122,7 @@ export const EditDestinationPage = () => {
     return <LoadingComponent />;
   }
 
-  if (hasFetchError) {
+  if (hasFetchDestError) {
     return (
       <BaseLayout>
         <ErrorBox

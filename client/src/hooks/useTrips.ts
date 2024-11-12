@@ -50,20 +50,20 @@ export const useTrips = () => {
   // Mutation for creating a new trip
   const {
     mutate: createTrip,
-    isLoading: isCreating,
+    status: isCreating,
     isError: hasCreateError,
   } = useMutation({
     mutationFn: async (newTrip: Omit<Trip, '_id'>) => {
       const response = await axios.post(`${BACKEND_URL}/trips`, newTrip);
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(['trips']),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
   });
 
   // Mutation for updating a trip
   const {
     mutate: updateTrip,
-    isLoading: isUpdating,
+    status: isUpdating,
     isError: hasUpdateError,
   } = useMutation({
     mutationFn: async (updatedTrip: Trip) => {
@@ -73,8 +73,8 @@ export const useTrips = () => {
       );
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(['trips']);
+    onSuccess: (updatedTrip) => {
+      queryClient.invalidateQueries({ queryKey: ['trips'] });
       if (trip && updatedTrip._id === trip._id) {
         setTrip(updatedTrip);
       }
@@ -84,14 +84,14 @@ export const useTrips = () => {
   // Mutation for deleting a trip
   const {
     mutate: deleteTrip,
-    isLoading: isDeleting,
+    status: isDeleting,
     isError: hasDeleteError,
   } = useMutation({
     mutationFn: async ({ id, userId }: { id: string; userId: string }) => {
       await axios.delete(`${BACKEND_URL}/trips/${id}`, { data: { userId } });
       return id;
     },
-    onSuccess: () => queryClient.invalidateQueries(['trips']),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
   });
 
   return {

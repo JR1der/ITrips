@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+
+# Something
+cypress
+cypress.config.ts
+jest.config.ts
+jest.setup.ts

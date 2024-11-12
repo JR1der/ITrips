@@ -1,14 +1,14 @@
-import { Alert } from '@mui/material';
+import { Alert, Box } from '@mui/material';
 import React from 'react';
 
 interface ErrorProps {
   message: string;
-  type: string | undefined;
+  type: 'error' | 'info' | 'success' | 'warning' | undefined;
 }
 
-const ErrorPage: React.FC<ErrorProps> = ({ message, type }) => {
+const ErrorPage: React.FC<ErrorProps> = ({ message, type = 'error' }) => {
   return (
-    <div
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -19,7 +19,7 @@ const ErrorPage: React.FC<ErrorProps> = ({ message, type }) => {
       }}
     >
       <Alert severity={type}>{message}</Alert>
-    </div>
+    </Box>
   );
 };
 

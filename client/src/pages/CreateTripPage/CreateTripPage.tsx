@@ -32,12 +32,15 @@ export const CreateTripPage: React.FC = () => {
   const { createTrip } = useTrips();
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const { destinations, isLoading, isError } = useDestinations();
+  const { destinations, isFetchingDestinations, hasFetchDestError } =
+    useDestinations();
   const [selectedDestinations, setSelectedDestinations] = useState<
     Destination[]
   >([]);
   const [error, setError] = useState<string>('');
-  const [errorType] = useState<string>('');
+  const [errorType] = useState<'error' | 'warning' | 'info' | 'success'>(
+    'error'
+  );
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [fadeIn, setFadeIn] = useState<boolean>(false);
@@ -66,7 +69,7 @@ export const CreateTripPage: React.FC = () => {
       userId: activeUser?.id,
       name,
       description,
-      destinations: selectedDestinations.map((dest) => dest._id),
+      destinations: selectedDestinations,
     };
 
     try {
@@ -185,14 +188,14 @@ export const CreateTripPage: React.FC = () => {
               >
                 Select Destination
               </Typography>
-              {isLoading && <LoadingComponent />}
-              {isError && (
+              {isFetchingDestinations && <LoadingComponent />}
+              {hasFetchDestError && (
                 <ErrorBox
                   message="Error fetching destinations. Please try again later."
                   type="error"
                 />
               )}
-              {!isLoading && !isError && (
+              {!isFetchingDestinations && !hasFetchDestError && (
                 <Box
                   sx={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}
                 >

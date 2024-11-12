@@ -1,17 +1,19 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Chip,
-    Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Chip,
+  Typography,
 } from '@mui/material';
 
 interface Destination {
+  _id: string;
   name: string;
-  description: string;
-  activities: string[];
+  userId?: string;
+  description?: string;
+  activities?: string[];
 }
 
 interface AccordionDestinationProps {
@@ -37,7 +39,7 @@ export const AccordionDestination = ({
       <AccordionDetails sx={{ backgroundColor: 'grey.100' }}>
         <Typography>{destination.description}</Typography>
         <Box display="flex" mt={1}>
-          {destination?.activities.map((activity, index) => (
+          {destination?.activities?.map((activity, index) => (
             <Chip
               key={index}
               label={activity}
@@ -48,6 +50,11 @@ export const AccordionDestination = ({
               }}
             />
           ))}
+          {destination.activities?.length === 0 && (
+            <Typography sx={{ width: '100%', textAlign: 'center', mt: 2 }}>
+              No activities available for this destination.
+            </Typography>
+          )}
         </Box>
       </AccordionDetails>
     </Accordion>

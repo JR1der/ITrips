@@ -27,7 +27,6 @@ export const WelcomePage = () => {
             and destinations.
           </Typography>
         </Box>
-
         <Grid
           container
           direction="column"

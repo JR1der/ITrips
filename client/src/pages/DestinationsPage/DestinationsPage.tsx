@@ -13,7 +13,7 @@ export const DestinationsPage = () => {
   const {
     destinations,
     isFetchingDestinations,
-    hasFetchError,
+    hasFetchDestError,
     deleteDestination,
   } = useDestinations();
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,7 +34,7 @@ export const DestinationsPage = () => {
   const handleDeleteDestination = async () => {
     await deleteDestination({
       id: selectedDestination.id,
-      userId: activeUser?.id,
+      userId: activeUser?.id as string,
     });
     setModalOpen(false);
   };
@@ -80,13 +80,13 @@ export const DestinationsPage = () => {
           </Button>
         </Tooltip>
 
-        {hasFetchError && (
+        {hasFetchDestError && (
           <ErrorBox
             message="Error fetching destinations. Please try again later."
             type="error"
           />
         )}
-        {!hasFetchError && destinations.length === 0 && (
+        {!hasFetchDestError && destinations.length === 0 && (
           <ErrorBox
             message="No destinations available. Create a new destination to get started!"
             type="info"

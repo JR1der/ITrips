@@ -19,7 +19,7 @@ export const useDestinations = () => {
   const {
     data: destinations = [],
     isLoading: isFetchingDestinations,
-    isError: hasFetchError,
+    isError: hasFetchDestError,
   } = useQuery({
     queryKey: ['destinations'],
     queryFn: async () => {
@@ -42,11 +42,12 @@ export const useDestinations = () => {
     }
   };
 
+  // Mutation for creating a destination
   const {
     mutate: createDestination,
-    isLoading: isCreating,
+    status: isCreating,
     isError: hasCreateError,
-  } = useMutation({
+  } = useMutation<Destination, Error, Omit<Destination, '_id'>>({
     mutationFn: async (newDestination: Omit<Destination, '_id'>) => {
       const response = await axios.post(
         `${BACKEND_URL}/destinations/create`,
@@ -54,15 +55,16 @@ export const useDestinations = () => {
       );
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(['destinations']),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['destinations'] }),
   });
 
   // Mutation for updating a destination
   const {
     mutate: updateDestination,
-    isLoading: isUpdating,
+    status: isUpdating,
     isError: hasUpdateError,
-  } = useMutation({
+  } = useMutation<Destination, Error, Destination>({
     mutationFn: async (updatedDestination: Destination) => {
       const response = await axios.put(
         `${BACKEND_URL}/destinations/update/${updatedDestination._id}`,
@@ -70,29 +72,31 @@ export const useDestinations = () => {
       );
       return response.data;
     },
-    onSuccess: () => queryClient.invalidateQueries(['destinations']),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['destinations'] }),
   });
 
   // Mutation for deleting a destination
   const {
     mutate: deleteDestination,
-    isLoading: isDeleting,
+    status: isDeleting,
     isError: hasDeleteError,
-  } = useMutation({
-    mutationFn: async ({ id, userId }: { id: string; userId: string }) => {
+  } = useMutation<string, Error, { id: string; userId: string }>({
+    mutationFn: async ({ id, userId }) => {
       await axios.delete(`${BACKEND_URL}/destinations/delete/${id}`, {
         data: { userId },
       });
       return id;
     },
-    onSuccess: () => queryClient.invalidateQueries(['destinations']),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ['destinations'] }),
   });
 
   return {
     destinations,
     destination,
     isFetchingDestinations,
-    hasFetchError,
+    hasFetchDestError,
     createDestination,
     isCreating,
     hasCreateError,

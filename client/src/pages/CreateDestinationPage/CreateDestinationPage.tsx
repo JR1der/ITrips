@@ -22,7 +22,9 @@ export const CreateDestinationPage = () => {
   const [description, setDescription] = useState('');
   const [activities, setActivities] = useState(['']);
   const [error, setError] = useState('');
-  const [errorType, setErrorType] = useState('');
+  const [errorType, setErrorType] = useState<
+    'error' | 'success' | 'warning' | 'info'
+  >('info');
   const [openModal, setOpenModal] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
   const { createDestination, isCreating } = useDestinations();
@@ -57,8 +59,14 @@ export const CreateDestinationPage = () => {
       return;
     }
 
+    if (!activeUser?.id) {
+      setError('User ID is required');
+      setErrorType('error');
+      return;
+    }
+
     const destination = {
-      userId: activeUser?.id,
+      userId: activeUser.id,
       name,
       description,
       activities,
@@ -152,7 +160,7 @@ export const CreateDestinationPage = () => {
               color="primary"
               onClick={handleCreateDestination}
               sx={{ mt: 4 }}
-              disabled={isCreating}
+              disabled={isCreating === 'pending'}
             >
               {isCreating ? 'Creating...' : 'Create Destination'}
             </Button>

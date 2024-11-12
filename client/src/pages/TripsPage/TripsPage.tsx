@@ -16,7 +16,7 @@ import { TripItem } from './components/TripItem.tsx';
 
 export const TripsPage = () => {
   const { activeUser } = useAuth();
-  const { trips, isLoading, isError, deleteTrip } = useTrips();
+  const { trips, isFetchingTrips, hasFetchError, deleteTrip } = useTrips();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState<{
     id: string;
@@ -26,15 +26,15 @@ export const TripsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isFetchingTrips) {
       setFadeIn(true);
     }
-  }, [isLoading]);
+  }, [isFetchingTrips]);
 
   const handleDeleteTrip = async () => {
     await deleteTrip({
       id: selectedTrip.id,
-      userId: activeUser?.id,
+      userId: activeUser?.id || '',
     });
     setModalOpen(false);
   };
@@ -71,7 +71,7 @@ export const TripsPage = () => {
             Click To Create A Trip
           </Button>
         </Tooltip>
-        {isLoading && (
+        {isFetchingTrips && (
           <Box
             sx={{
               display: 'flex',
@@ -83,13 +83,13 @@ export const TripsPage = () => {
             <CircularProgress />
           </Box>
         )}
-        {isError && (
+        {hasFetchError && (
           <ErrorBox
             message="Error fetching trips. Please try again later."
             type="error"
           />
         )}
-        {!isLoading && trips?.length === 0 && (
+        {!isFetchingTrips && trips?.length === 0 && (
           <ErrorBox
             message="No trips available. Create a new trip to get started!"
             type="info"
@@ -113,7 +113,7 @@ export const TripsPage = () => {
             {userTrips.map((trip: any) => (
               <TripItem
                 key={trip._id}
-                activeUserId={activeUser?.id}
+                activeUserId={activeUser?.id || ''}
                 trip={trip}
                 handleDeleteTrip={(id: string, name: string) =>
                   handleOpenModal(id, name)
@@ -141,7 +141,7 @@ export const TripsPage = () => {
             {otherTrips.map((trip: any) => (
               <TripItem
                 key={trip._id}
-                activeUserId={activeUser?.id}
+                activeUserId={activeUser?.id || ''}
                 trip={trip}
                 handleDeleteTrip={(id: string, name: string) =>
                   handleOpenModal(id, name)
@@ -154,7 +154,7 @@ export const TripsPage = () => {
       <DeleteConfirmationModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        onDelete={handleDeleteTrip} // Call the updated delete function
+        onDelete={handleDeleteTrip}
         tripName={selectedTrip.name}
       />
     </BaseLayout>

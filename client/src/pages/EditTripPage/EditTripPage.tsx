@@ -30,13 +30,16 @@ export const EditTripPage = () => {
   const [description, setDescription] = useState('');
   const [selectedDestinations, setSelectedDestinations] = useState<any[]>([]);
   const [error, setError] = useState('');
-  const [errorType, setErrorType] = useState('');
+  const [errorType, setErrorType] = useState<
+    'error' | 'info' | 'success' | 'warning'
+  >('error');
   const [openModal, setOpenModal] = useState(false);
   const [showEditedModal, setShowEditedModal] = useState(false);
   const { activeUser } = useAuth();
-  const { fetchTripById, updateTrip, trip, tripLoading, tripError } =
+  const { fetchTripById, updateTrip, trip, isFetchingTrips, hasFetchError } =
     useTrips();
-  const { destinations, destLoading, destError } = useDestinations();
+  const { destinations, isFetchingDestinations, hasFetchDestError } =
+    useDestinations();
 
   useEffect(() => {
     if (!trip && id) fetchTripById(id);
@@ -49,12 +52,12 @@ export const EditTripPage = () => {
         return;
       }
     }
-    if (trip && !tripLoading && !tripError) {
+    if (trip && !isFetchingTrips && !hasFetchError) {
       setName(trip.name || '');
       setDescription(trip.description || '');
       setSelectedDestinations(trip.destinations || []);
     }
-  }, [trip, tripLoading, tripError]);
+  }, [trip, isFetchingTrips, hasFetchError]);
 
   const handleEditTrip = async () => {
     if (!name || !description || selectedDestinations.length === 0) {
@@ -77,7 +80,7 @@ export const EditTripPage = () => {
       setErrorType('success');
       setShowEditedModal(true);
       if (!trip || trip.name !== name || trip.description !== description) {
-        fetchTripById(id);
+        fetchTripById(id || '');
       }
     } catch (err) {
       console.error(err);
@@ -93,7 +96,7 @@ export const EditTripPage = () => {
     window.location.reload();
   };
 
-  if (tripLoading || destLoading) return <LoadingComponent />;
+  if (isFetchingTrips || isFetchingDestinations) return <LoadingComponent />;
 
   return (
     <BaseLayout>
@@ -158,17 +161,19 @@ export const EditTripPage = () => {
                 </IconButton>
               </Box>
               <Box display="flex" mt={1}>
-                {destination.activities.map((activity, activityIndex) => (
-                  <Chip
-                    key={activityIndex}
-                    label={activity}
-                    sx={{
-                      mr: 1,
-                      backgroundColor: 'primary.main',
-                      color: 'white',
-                    }}
-                  />
-                ))}
+                {destination.activities.map(
+                  (activity: any, activityIndex: any) => (
+                    <Chip
+                      key={activityIndex}
+                      label={activity}
+                      sx={{
+                        mr: 1,
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                      }}
+                    />
+                  )
+                )}
               </Box>
             </Card>
           ))}
@@ -201,18 +206,18 @@ export const EditTripPage = () => {
                 >
                   Select Destination
                 </Typography>
-                {destLoading && <LoadingComponent />}
-                {destError && (
+                {isFetchingDestinations && <LoadingComponent />}
+                {hasFetchDestError && (
                   <ErrorBox
                     message="Error fetching destinations. Please try again later."
                     type="error"
                   />
                 )}
-                {!destLoading && !destError && (
+                {!isFetchingDestinations && !hasFetchDestError && (
                   <Box
                     sx={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}
                   >
-                    {destinations.map((destination) => (
+                    {destinations.map((destination: any) => (
                       <AccordionDestination
                         key={destination._id}
                         destination={destination}

@@ -14,7 +14,7 @@ export const SingleDestinationPage = () => {
   const {
     destination,
     isFetchingDestinations,
-    hasFetchError,
+    hasFetchDestError,
     fetchDestinationById,
   } = useDestinations();
   const [destinationImage, setDestinationImage] = useState<string | null>(null);
@@ -63,7 +63,7 @@ export const SingleDestinationPage = () => {
     return <LoadingComponent />;
   }
 
-  if (hasFetchError) {
+  if (hasFetchDestError) {
     return (
       <BaseLayout>
         <ErrorBox
@@ -85,7 +85,7 @@ export const SingleDestinationPage = () => {
             transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          {!isFetchingDestinations && !hasFetchError && destination ? (
+          {!isFetchingDestinations && !hasFetchDestError && destination ? (
             <Box>
               {activeUser?.id === destination?.userId && (
                 <Tooltip title="Click to edit this destination">

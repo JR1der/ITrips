@@ -1,16 +1,17 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Button,
-    Chip,
-    Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Chip,
+  Typography,
 } from '@mui/material';
 
 interface Destination {
+  _id: string;
   name: string;
   description: string;
   activities: string[];

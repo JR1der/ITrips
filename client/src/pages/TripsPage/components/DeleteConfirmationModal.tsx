@@ -1,16 +1,23 @@
 import { Box, Button, Fade, Modal, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
+interface DeleteConfirmationModalProps {
+  open: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+  tripName: string;
+}
+
 export const DeleteConfirmationModal = ({
   open,
   onClose,
   onDelete,
   tripName,
-}) => {
+}: DeleteConfirmationModalProps) => {
   const [name, setName] = useState('');
   const [isDeleteDisabled, setIsDeleteDisabled] = useState(true);
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputName = e.target.value;
     setName(inputName);
     setIsDeleteDisabled(inputName !== tripName);

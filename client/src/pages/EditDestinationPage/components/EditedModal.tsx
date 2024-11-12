@@ -1,7 +1,15 @@
 import { Backdrop, Box, Fade, Modal, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 
-export const EditedModal = ({ handleCloseModal, openModal }) => {
+interface EditedModalProps {
+  handleCloseModal: () => void;
+  openModal: boolean;
+}
+
+export const EditedModal: React.FC<EditedModalProps> = ({
+  handleCloseModal,
+  openModal,
+}) => {
   return (
     <Modal
       open={openModal}
@@ -24,7 +32,6 @@ export const EditedModal = ({ handleCloseModal, openModal }) => {
             transform: 'translate(-50%, -50%)',
             width: { xs: '50%' },
             bgcolor: 'background.paper',
-
             borderRadius: 4,
             boxShadow: 24,
             p: 4,
